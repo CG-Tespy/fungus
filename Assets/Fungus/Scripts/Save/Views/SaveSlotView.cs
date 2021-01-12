@@ -7,7 +7,10 @@ namespace Fungus
 {
     public interface ISaveSlotView
     {
-        SaveGameMetaData SaveData { get; set; }
+        /// <summary>
+        /// Contains the info the view bases its actions off of.
+        /// </summary>
+        SaveSlotViewData SaveData { get; set; }
 
         void Refresh();
     }
@@ -17,7 +20,7 @@ namespace Fungus
     /// </summary>
     public abstract class SaveSlotView : MonoBehaviour, ISaveSlotView
     {
-        public SaveGameMetaData SaveData
+        public SaveSlotViewData SaveData
         {
             get { return saveData; }
             set
@@ -27,7 +30,8 @@ namespace Fungus
             }
         }
 
-        private SaveGameMetaData saveData;
+
+        private SaveSlotViewData saveData;
 
         public abstract void Refresh();
 
@@ -35,5 +39,6 @@ namespace Fungus
         {
             get { return saveData != null; }
         }
+
     }
 }

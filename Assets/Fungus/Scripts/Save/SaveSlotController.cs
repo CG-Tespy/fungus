@@ -73,12 +73,16 @@ namespace Fungus
             //descText.text = ourMeta.description;
             //timeStampText.text = ourMeta.GetReadableTime();
 
+            // TODO: Read the system file. It should just contain an array of 
+
             // Pass the metadata to the views, so they can do their thing with it.
             slotViews = GetComponentsInChildren<ISaveSlotView>();
             for (int i = 0; i < slotViews.Length; i++)
             {
                 ISaveSlotView currentView = slotViews[i];
-                currentView.SaveData = LinkedMeta;
+
+                // TODO: From the system file, pass the view the appropriate SaveSlotViewData
+                //currentView.SaveData = LinkedMeta;
             }
         }
 
