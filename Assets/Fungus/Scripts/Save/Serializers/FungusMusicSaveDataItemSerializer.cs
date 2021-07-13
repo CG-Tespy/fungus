@@ -11,7 +11,7 @@ namespace Fungus
     /// <summary>
     /// This component encodes and decodes the added flowcharts and their blocks and running states.
     /// </summary>
-    public class FungusMusicSaveDataItemSerializer : ISaveDataItemSerializer
+    public class FungusMusicSaveDataItemSerializer : ISaveDataItemSerializer<StringPair[], FungusMusicSaveDataItem>
     {
         [SerializeField] protected List<AudioClip> possibleMusicAudioClips, possibleAmbientAudioClips;
 
@@ -51,35 +51,10 @@ namespace Fungus
             return SaveDataItemUtils.CreateSingleElement(DataTypeKey, data);
         }
 
-        public bool Decode(StringPair sdi)
+        public FungusMusicSaveDataItem Decode(StringPair sdi)
         {
             var data = JsonUtility.FromJson<FungusMusicSaveDataItem>(sdi.val);
-            if (data == null)
-            {
-                Debug.LogError("Failed to decode Fungus Music save data item");
-                return false;
-            }
-
-            var mm = FungusManager.Instance.MusicManager;
-
-            mm.StopMusic();
-            mm.StopAmbiance();
-
-            mm.SetAudioPitch(data.music.pitch, 0, () => { });
-            mm.SetAudioVolume(data.music.vol, 0, () => { });
-
-            mm.PlayMusic(
-                possibleMusicAudioClips.FirstOrDefault(x => x.name == data.music.clipName),
-                data.music.loop,
-                0,
-                data.music.position);
-
-            mm.PlayAmbianceSound(
-                possibleAmbientAudioClips.FirstOrDefault(x => x.name == data.amb.clipName),
-                data.amb.loop,
-                data.amb.vol);
-
-            return true;
+            return data;
         }
 
         public void PreDecode()

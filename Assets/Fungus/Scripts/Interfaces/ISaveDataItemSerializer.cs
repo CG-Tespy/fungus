@@ -3,17 +3,28 @@
 
 namespace Fungus
 {
-    public interface ISaveDataItemSerializer
+
+    /// <summary>
+    /// For classes that encode and decode save data.
+    /// TEncoded is the encoded form of the data, TDecoded is the decoded form of the data.
+    /// </summary>
+    public interface ISaveDataItemSerializer<TEncoded, TDecoded>
     {
         int Order { get; }
         string DataTypeKey { get; }
 
+        /// <summary>
+        /// Executes procedures that this serializer should do before doing any encoding.
+        /// </summary>
         void PreDecode();
 
+        /// <summary>
+        /// Executes procedures that this serializer should do when decoding is done.
+        /// </summary>
         void PostDecode();
 
-        StringPair[] Encode();
+        TEncoded Encode();
 
-        bool Decode(StringPair sdi);
+        TDecoded Decode(TEncoded encoded);
     }
 }

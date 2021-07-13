@@ -116,7 +116,6 @@ namespace Fungus
 
                 SceneManager.sceneLoaded -= onSceneLoadedAction;
 
-                // Look for a SaveData component in the scene to process the save data items.
                 CurrentSaveHandler.LoadSaveData(savePointData);
 
                 SaveManagerSignals.DoSaveLoaded(savePointData.saveName);
